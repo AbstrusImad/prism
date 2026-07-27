@@ -237,6 +237,17 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+/* Keyframes used by CSS animations */
+@keyframes float-up {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-left {
+  0% { opacity: 0; transform: translateX(-20px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
 /* CSS fallback for hero-reveal elements: if JS fails, they still appear */
 .hero-reveal {
   animation: float-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
