@@ -287,6 +287,12 @@ body {
 }
 
 /* Scroll-driven reveal (overdrive signature) */
+/* Fallback: always animate in with float-up for all browsers */
+.scroll-reveal {
+  animation: float-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Progressive enhancement: scroll-driven on supported browsers */
 @supports (animation-timeline: view()) {
   .scroll-reveal {
     animation: scroll-fade-in linear both;
