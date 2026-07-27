@@ -50,7 +50,7 @@ export function LensSection({ id, sectionNumber, verdict, lensColor, lensIcon: I
         alignItems: 'start',
       }} className="lens-grid">
         {/* Editorial column */}
-        <div className="lens-reveal" style={{ opacity: 0 }}>
+        <div className="lens-reveal" style={{}}>
           <span className="font-label" style={{
             color: lensColor,
             display: 'block',
@@ -147,7 +147,6 @@ export function LensSection({ id, sectionNumber, verdict, lensColor, lensIcon: I
             className="lens-reveal neu-raised"
             style={{
               padding: 'var(--space-xl)',
-              opacity: 0,
             }}
           >
             <p style={{

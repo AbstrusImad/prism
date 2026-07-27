@@ -60,7 +60,7 @@ export function DilemmaSection({ onSubmit }: DilemmaSectionProps) {
         alignItems: 'start',
       }} className="dilemma-grid">
         {/* Left editorial column */}
-        <div className="dilemma-reveal" style={{ opacity: 0 }}>
+        <div className="dilemma-reveal" style={{}}>
           <span className="font-label" style={{
             color: 'var(--accent-rose)',
             display: 'block',
@@ -106,7 +106,7 @@ export function DilemmaSection({ onSubmit }: DilemmaSectionProps) {
         </div>
 
         {/* Right form column */}
-        <div className="dilemma-reveal" style={{ opacity: 0 }}>
+        <div className="dilemma-reveal" style={{}}>
           <div className="neu-raised" style={{ padding: 'var(--space-xl)' }}>
             {/* Title input */}
             <div style={{ marginBottom: 'var(--space-md)' }}>

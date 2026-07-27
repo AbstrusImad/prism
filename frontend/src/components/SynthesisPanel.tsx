@@ -41,7 +41,7 @@ export function SynthesisPanel({ analysis }: SynthesisPanelProps) {
         alignItems: 'start',
       }} className="synth-grid">
         {/* Editorial column */}
-        <div className="synth-reveal" style={{ opacity: 0 }}>
+        <div className="synth-reveal" style={{}}>
           <span className="font-label" style={{
             color: 'var(--accent-peach)',
             display: 'block',
@@ -80,7 +80,7 @@ export function SynthesisPanel({ analysis }: SynthesisPanelProps) {
         </div>
 
         {/* Synthesis panel */}
-        <div className="synth-reveal" style={{ opacity: 0 }}>
+        <div className="synth-reveal" style={{}}>
           {/* Convergence score */}
           <div className="neu-raised" style={{
             padding: 'var(--space-xl)',

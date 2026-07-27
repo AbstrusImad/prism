@@ -61,7 +61,7 @@ export function ArchiveSection({ analyses }: ArchiveSectionProps) {
     <section id="archive" ref={ref} className="ruled-section" style={{
       padding: 'var(--space-3xl) 0',
     }}>
-      <div className="archive-reveal" style={{ opacity: 0, marginBottom: 'var(--space-xl)' }}>
+      <div className="archive-reveal" style={{ marginBottom: 'var(--space-xl)' }}>
         <span className="font-label" style={{
           color: 'var(--accent-sky)',
           display: 'block',
@@ -94,7 +94,7 @@ export function ArchiveSection({ analyses }: ArchiveSectionProps) {
             <div
               key={analysis.dilemmaId}
               className="archive-reveal"
-              style={{ opacity: 0, position: 'relative' }}
+              style={{ position: 'relative' }}
             >
               {/* Timeline number */}
               <div style={{

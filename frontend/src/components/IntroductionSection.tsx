@@ -37,7 +37,7 @@ export function IntroductionSection() {
         alignItems: 'start',
       }} className="intro-grid">
         {/* Left column - editorial label */}
-        <div className="intro-reveal" style={{ opacity: 0 }}>
+        <div className="intro-reveal" style={{}}>
           <span className="font-label" style={{
             color: 'var(--accent-lavender)',
             display: 'block',
@@ -70,7 +70,6 @@ export function IntroductionSection() {
               color: 'var(--text-secondary)',
               lineHeight: 1.7,
               marginBottom: 'var(--space-lg)',
-              opacity: 0,
             }}
           >
             Most ethical analysis tools give you a single answer. Prism believes that ethical questions deserve multiple perspectives, each held accountable by independent validator consensus. You submit a dilemma, and three distinct philosophical frameworks evaluate it simultaneously on-chain.
@@ -107,7 +106,6 @@ export function IntroductionSection() {
                 className="intro-reveal neu-raised"
                 style={{
                   padding: 'var(--space-lg)',
-                  opacity: 0,
                 }}
               >
                 <div style={{
@@ -148,7 +146,6 @@ export function IntroductionSection() {
               color: 'var(--text-tertiary)',
               lineHeight: 1.7,
               marginTop: 'var(--space-lg)',
-              opacity: 0,
               fontStyle: 'italic',
               borderLeft: '2px solid var(--accent-lavender)',
               paddingLeft: 'var(--space-md)',

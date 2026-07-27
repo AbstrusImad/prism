@@ -12,31 +12,40 @@ import { ArchiveSection } from '@/components/ArchiveSection';
 import { Footer } from '@/components/Footer';
 import { ToastProvider } from '@/components/ToastProvider';
 import { useContractData } from '@/hooks/useContractData';
-import { SkeletonList } from '@/components/Skeleton';
 import { Eye, Scale, Cpu } from 'lucide-react';
-import Lenis from 'lenis';
 
 export default function Home() {
-  const { analyses, dilemmas, loading } = useContractData();
+  const { analyses, loading } = useContractData();
   const mainRef = useRef<HTMLDivElement>(null);
 
-  // Smooth scroll with Lenis
+  // Smooth scroll with Lenis - wrapped in try/catch to prevent hydration break
   useEffect(() => {
-    const lenis = new Lenis({
-      lerp: 0.08,
-      smoothWheel: true,
-    });
-
+    let lenisInstance: { raf: (t: number) => void; destroy: () => void } | null = null;
     let rafId: number;
-    function raf(time: number) {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    }
-    rafId = requestAnimationFrame(raf);
+
+    import('lenis').then((mod) => {
+      try {
+        const LenisClass = mod.default || mod;
+        lenisInstance = new LenisClass({
+          lerp: 0.08,
+          smoothWheel: true,
+        });
+
+        function raf(time: number) {
+          if (lenisInstance) lenisInstance.raf(time);
+          rafId = requestAnimationFrame(raf);
+        }
+        rafId = requestAnimationFrame(raf);
+      } catch {
+        // Lenis not available, fall back to native scroll
+      }
+    }).catch(() => {
+      // Dynamic import failed, native scroll is fine
+    });
 
     return () => {
       cancelAnimationFrame(rafId);
-      lenis.destroy();
+      if (lenisInstance) lenisInstance.destroy();
     };
   }, []);
 
@@ -75,8 +84,12 @@ export default function Home() {
           {/* Main document column */}
           <div style={{ flex: 1, minWidth: 0 }}>
             {loading ? (
-              <div style={{ padding: 'var(--space-3xl) 0' }}>
-                <SkeletonList count={4} />
+              <div className="loading-fade-in" style={{ padding: 'var(--space-3xl) 0' }}>
+                <div className="neu-raised" style={{ padding: 'var(--space-lg)', marginBottom: 'var(--space-md)' }}>
+                  <div className="skeleton-pulse" style={{ width: '60%', height: 20, borderRadius: 8, marginBottom: 12 }} />
+                  <div className="skeleton-pulse" style={{ width: '100%', height: 14, borderRadius: 6, marginBottom: 8 }} />
+                  <div className="skeleton-pulse" style={{ width: '80%', height: 14, borderRadius: 6 }} />
+                </div>
               </div>
             ) : (
               <>

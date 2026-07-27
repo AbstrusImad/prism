@@ -1,15 +1,29 @@
-import { createClient } from 'genlayer-js';
-import { testnetBradbury } from 'genlayer-js/chains';
-
 // Future contract address - replace after deployment
 export const CONTRACT_ADDRESS = '' as const;
 export const DEPLOY_TX = '' as const;
 export const EXPLORER = 'https://explorer-bradbury.genlayer.com';
 
-export const readClient = createClient({ chain: testnetBradbury });
+// Lazy client initialization to prevent SSR failures
+let _readClient: unknown = null;
 
-export const makeWalletClient = (account: `0x${string}`) =>
-  createClient({ chain: testnetBradbury, account });
+export function getReadClient() {
+  if (!_readClient) {
+    try {
+      const { createClient } = require('genlayer-js');
+      const { testnetBradbury } = require('genlayer-js/chains');
+      _readClient = createClient({ chain: testnetBradbury });
+    } catch {
+      throw new Error('genlayer-js not available');
+    }
+  }
+  return _readClient;
+}
+
+export function makeWalletClient(account: `0x${string}`) {
+  const { createClient } = require('genlayer-js');
+  const { testnetBradbury } = require('genlayer-js/chains');
+  return createClient({ chain: testnetBradbury, account });
+}
 
 export async function withRpcRetry<T>(fn: () => Promise<T>, tries = 4): Promise<T> {
   let last: unknown;

@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useState, useCallback } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { PrismCanvas } from './PrismCanvas';
 import { ArrowDown } from 'lucide-react';
 
@@ -8,37 +8,16 @@ export function PrismHero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
 
-  // Track scroll position for prism reactivity
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const viewportH = window.innerHeight;
-      // Map 0 to 1 viewport scroll to 0..1 progress
       const progress = Math.min(1, scrollY / viewportH);
       setScrollProgress(progress);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.querySelectorAll('.hero-reveal').forEach((child, i) => {
-            (child as HTMLElement).style.animation = `float-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1}s forwards`;
-          });
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
   }, []);
 
   return (
@@ -69,7 +48,6 @@ export function PrismHero() {
               style={{
                 color: 'var(--accent-lavender)',
                 marginBottom: 'var(--space-md)',
-                opacity: 0,
               }}
             >
               GenLayer Intelligent Contracts
@@ -81,7 +59,6 @@ export function PrismHero() {
                 fontSize: 'var(--text-display)',
                 color: 'var(--text-primary)',
                 marginBottom: 'var(--space-lg)',
-                opacity: 0,
               }}
             >
               <span>Ethics</span>{' '}
@@ -103,17 +80,13 @@ export function PrismHero() {
                 lineHeight: 1.6,
                 maxWidth: '48ch',
                 marginBottom: 'var(--space-xl)',
-                opacity: 0,
               }}
             >
               Submit an ethical dilemma and watch three philosophical frameworks analyze it independently.
               Each lens produces a scored verdict, validated under GenLayer consensus by five independent validators.
             </p>
 
-            <div
-              className="hero-reveal flex items-center gap-4 flex-wrap"
-              style={{ opacity: 0 }}
-            >
+            <div className="hero-reveal flex items-center gap-4 flex-wrap">
               <button
                 className="neu-button"
                 style={{
@@ -152,10 +125,7 @@ export function PrismHero() {
             </div>
 
             {/* Status chips */}
-            <div
-              className="hero-reveal flex flex-wrap items-center gap-3"
-              style={{ marginTop: 'var(--space-xl)', opacity: 0 }}
-            >
+            <div className="hero-reveal flex flex-wrap items-center gap-3" style={{ marginTop: 'var(--space-xl)' }}>
               <div className="neu-raised-sm flex items-center gap-2" style={{ padding: '6px 12px' }}>
                 <div style={{
                   width: 6, height: 6, borderRadius: '50%',
@@ -180,14 +150,7 @@ export function PrismHero() {
           </div>
 
           {/* Canvas column */}
-          <div
-            className="hero-reveal"
-            style={{
-              opacity: 0,
-              borderRadius: 28,
-              overflow: 'hidden',
-            }}
-          >
+          <div className="hero-reveal" style={{ borderRadius: 28, overflow: 'hidden' }}>
             <div className="neu-inset-lg" style={{
               aspectRatio: '1',
               maxWidth: 500,
@@ -200,14 +163,10 @@ export function PrismHero() {
         </div>
 
         {/* Scroll hint */}
-        <div
-          className="hero-reveal flex justify-center"
-          style={{
-            opacity: 0,
-            paddingBottom: 'var(--space-lg)',
-            marginTop: 'var(--space-xl)',
-          }}
-        >
+        <div className="hero-reveal flex justify-center" style={{
+          paddingBottom: 'var(--space-lg)',
+          marginTop: 'var(--space-xl)',
+        }}>
           <button
             onClick={() => document.getElementById('introduction')?.scrollIntoView({ behavior: 'smooth' })}
             className="neu-button"
